@@ -1,22 +1,21 @@
 import Bull from 'bull';
 import Redis from 'ioredis';
 
-// Redis connection
-const redis = new Redis({
+// Redis config shared
+const redisConfig = {
   host: process.env.REDIS_HOST || 'localhost',
   port: parseInt(process.env.REDIS_PORT || '6379'),
   password: process.env.REDIS_PASSWORD,
   db: parseInt(process.env.REDIS_DB || '0')
-});
+};
 
-// Create Bull queue
-const webhookQueue = new Bull('webhook processing', {
-  redis: {
-    host: process.env.REDIS_HOST || 'localhost',
-    port: parseInt(process.env.REDIS_PORT || '6379'),
-    password: process.env.REDIS_PASSWORD,
-    db: parseInt(process.env.REDIS_DB || '0')
-  }
+// Redis connection
+// Create shared Redis instance (optional but useful)
+const redis = new Redis(redisConfig);
+
+// Bull Queue using same config
+const webhookQueue = new Bull('webhook-processing', {
+  redis: redisConfig
 });
 
 // Queue service

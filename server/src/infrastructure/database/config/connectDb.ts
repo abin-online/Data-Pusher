@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import { config } from 'dotenv';
 config()
 
-const dbUri: string = process.env.MONGO_URL || '';
+const dbUri: string = process.env.MONGO_URL || 'mongodb://localhost:27017/data_pusher';
 const MAX_RETRIES = 5;
 const RETRY_DELAY_MS = 2000;
 
