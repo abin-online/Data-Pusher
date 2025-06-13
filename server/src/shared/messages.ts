@@ -23,3 +23,12 @@ export enum AccountMessages {
     NOT_FOUND = "Account not found",
     SEARCH_REQUIRED = "Search query is required",
 }
+
+
+export enum DestinationResponses {
+  CREATED = "Destination created successfully",
+  UPDATED = "Destination updated successfully",
+  DELETED = "Destination deleted successfully",
+  NOT_FOUND = "Destination not found",
+  SEARCH_REQUIRED = "Search query is required"
+}
