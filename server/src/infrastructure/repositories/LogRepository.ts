@@ -4,6 +4,19 @@ import { ILogRepository } from "../../domain/respositories/ILogRepository";
 import { LogModel } from "../database/model/LogModel";
 
 export class LogRepository implements ILogRepository {
+
+    async create(logData: any): Promise<ILog> {
+        const log = new LogModel(logData);
+        return log.save();
+    }
+
+    async updateStatusByEventId(eventId: string, status: string, processedTimestamp?: Date): Promise<ILog | null> {
+        const updateData: any = { status };
+        if (processedTimestamp) updateData.processed_at = processedTimestamp;
+
+        return LogModel.findOneAndUpdate({ event_id: eventId }, updateData, { new: true }).exec();
+    }
+
     async findByAccountId(accountId: string, page: number, limit: number): Promise<ILog[]> {
         return LogModel.find({ accountId })
             .skip((page - 1) * limit)

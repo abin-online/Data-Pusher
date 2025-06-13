@@ -1,6 +1,7 @@
 import { Types } from "mongoose";
 
 export interface IAccount  {
+  _id: Types.ObjectId | string;
   account_id: string;
   account_name: string;
   app_secret_token: string;

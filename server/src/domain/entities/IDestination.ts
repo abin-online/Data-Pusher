@@ -6,6 +6,7 @@ interface IHeader {
 }
 
 export interface IDestination {
+    _id: Types.ObjectId | string;
     account_id: Types.ObjectId;
     url: string;
     http_method: string;

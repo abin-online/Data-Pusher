@@ -4,9 +4,11 @@ import { IDestination } from "../../domain/entities/IDestination";
 import { Types } from "mongoose";
 
 export class DestinationRepository implements IDestinationRepository {
-  async createDestination(data: IDestination): Promise<IDestination> {
-    return await DestinationModel.create(data);
-  }
+async createDestination(data: IDestination): Promise<IDestination> {
+  const doc = await DestinationModel.create(data);
+  return doc.toObject() as IDestination;
+}
+
 
   async getDestinationsByAccount(accountId: string): Promise<IDestination[]> {
     return await DestinationModel.find({ account_id: accountId });

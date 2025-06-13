@@ -1,12 +1,13 @@
 import { IAccountRepository } from "../../domain/respositories/IAccountRepository";
-import { IAccount } from "../database/model/AccountModel";
+import { IAccount } from "../../domain/entities/IAccount";
 import { AccountModel } from "../database/model/AccountModel";
 import { Types } from "mongoose";
 
 export class AccountRepository implements IAccountRepository {
-    async create(account: Partial<IAccount>): Promise<IAccount> {
-        return await AccountModel.create(account);
-    }
+  async create(account: Partial<IAccount>): Promise<IAccount> {
+    const created = await AccountModel.create(account);
+    return created.toObject() as IAccount; 
+  }
 
     async getById(id: string): Promise<IAccount | null> {
         return await AccountModel.findById(id);
