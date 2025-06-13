@@ -68,4 +68,20 @@ export class AuthMiddleware {
       res.status(500).json({ success: false, message: AuthMessages.AUTH_FAILED });
     }
   };
+
+
+  isAdmin = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    // @ts-ignore 
+    const user = req.user;
+
+    if (!user || user.role !== "admin") {
+      res.status(403).json({
+        success: false,
+        message: "Admin access only"
+      });
+      return;
+    }
+
+    next();
+  }
 }
